@@ -1,0 +1,156 @@
+<div class="app-shell">
+  <header class="app-header">
+    <div class="logo">
+      <div class="logo-mark" aria-hidden="true">CC</div>
+      <div>
+        <p class="eyebrow">Coffee Collective</p>
+        <h1>Insights Dashboard</h1>
+      </div>
+    </div>
+
+    <label class="header-search">
+      <span class="visually-hidden">Search menu</span>
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          d="M15.5 14h-.79l-.28-.27a6 6 0 1 0-.71.71l.27.28v.79L20 21.5 21.5 20Zm-5.5 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9Z"
+        />
+      </svg>
+      <input type="search" placeholder="Search drinks, beans, origins" aria-label="Search menu" />
+    </label>
+
+    <div class="header-actions">
+      <button type="button" class="icon-button" aria-label="Notifications">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2Zm6-6v-5a6 6 0 1 0-12 0v5l-2 2v1h16v-1Z"
+          />
+        </svg>
+      </button>
+      <button type="button" class="icon-button" aria-label="Settings">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M19.14 12.94a7.828 7.828 0 0 0 .06-.94 7.828 7.828 0 0 0-.06-.94l2.03-1.58a.5.5 0 0 0 .12-.63l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7.042 7.042 0 0 0-1.62-.94l-.36-2.54A.5.5 0 0 0 14.3 2h-3.6a.5.5 0 0 0-.5.42l-.36 2.54a7.042 7.042 0 0 0-1.62.94l-2.39-.96a.5.5 0 0 0-.6.22L3.31 8.52a.5.5 0 0 0 .12.63l2.03 1.58a7.828 7.828 0 0 0 0 1.88l-2.03 1.58a.5.5 0 0 0-.12.63l1.92 3.32a.5.5 0 0 0 .6.22l2.39-.96a7.042 7.042 0 0 0 1.62.94l.36 2.54a.5.5 0 0 0 .5.42h3.6a.5.5 0 0 0 .5-.42l.36-2.54a7.042 7.042 0 0 0 1.62-.94l2.39.96a.5.5 0 0 0 .6-.22l1.92-3.32a.5.5 0 0 0-.12-.63ZM12 15a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"
+          />
+        </svg>
+      </button>
+      <button type="button" class="avatar-button" aria-label="Profile">
+        <span>VS</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="content">
+    <section class="hero" id="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Fresh &amp; hot</p>
+        <h1>{{ title() }}</h1>
+        <p class="lead">
+          Discover café-inspired drinks crafted by baristas around the world. Fresh data from
+          SampleAPIs keeps the menu rotating.
+        </p>
+        <button type="button" class="ghost-btn" (click)="reload()">
+          Refresh Menu
+        </button>
+      </div>
+
+      @if (featuredCoffee(); as featured) {
+        <div class="hero-card">
+          <img
+            [src]="featured.image"
+            [alt]="featured.title"
+            [appFallbackImg]="fallbackImage"
+            loading="lazy"
+            width="320"
+            height="240"
+          />
+          <div class="hero-card__copy">
+            <p class="eyebrow">Barista pick</p>
+            <h2>{{ featured.title }}</h2>
+            <p>{{ featured.description }}</p>
+          </div>
+        </div>
+      }
+    </section>
+
+    @if (isLoading()) {
+      <section class="state state--loading">
+        <span class="spinner" aria-hidden="true"></span>
+        <p>Brewing your drinks...</p>
+      </section>
+    } @else if (hasError()) {
+      <section class="state state--error">
+        <p>We spilled the beans. Please try again.</p>
+        <button type="button" class="primary-btn" (click)="reload()">Try again</button>
+      </section>
+    } @else {
+      <section class="overview" aria-label="Menu overview">
+        <article class="overview-card">
+          <p>Total Drinks</p>
+          <strong>{{ totalCoffees() }}</strong>
+          <span>Available on the menu</span>
+        </article>
+        <article class="overview-card">
+          <p>Unique Ingredients</p>
+          <strong>{{ uniqueIngredients().length }}</strong>
+          <span>From spices to syrups</span>
+        </article>
+        <article class="overview-card">
+          <p>Featured Spotlight</p>
+          <strong>{{ featuredCoffee()?.title ?? '—' }}</strong>
+          <span>Current hero drink</span>
+        </article>
+      </section>
+
+      <section class="menu-section" aria-live="polite" id="menu">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Menu</p>
+            <h2>Taste the rotation</h2>
+          </div>
+          <p id="about">
+            Hover over any card to learn more and spot the ingredients that make each drink sing.
+          </p>
+        </div>
+        <div class="coffee-grid">
+          @for (coffee of coffees(); track coffee.id) {
+            <article class="coffee-card">
+              <div class="coffee-card__image">
+                <img
+                  [src]="coffee.image"
+                  [alt]="coffee.title"
+                  [appFallbackImg]="fallbackImage"
+                  loading="lazy"
+                  width="320"
+                  height="240"
+                />
+              </div>
+              <div class="coffee-card__body">
+                <div>
+                  <h3>{{ coffee.title }}</h3>
+                  <p>{{ coffee.description }}</p>
+                </div>
+                <div class="ingredient-chips" *ngIf="coffee.ingredients.length">
+                  @for (ingredient of coffee.ingredients; track ingredient) {
+                    <span class="chip">{{ ingredient }}</span>
+                  }
+                </div>
+              </div>
+            </article>
+          }
+        </div>
+      </section>
+    }
+  </main>
+
+  <footer class="app-footer">
+    <div class="footer-content">
+      <p>© {{ currentYear }} Coffee Collective</p>
+      <nav aria-label="Footer links">
+        <a href="https://sampleapis.com" target="_blank" rel="noreferrer">API</a>
+        <a href="https://unsplash.com" target="_blank" rel="noreferrer">Media</a>
+        <a href="https://angular.dev" target="_blank" rel="noreferrer">Docs</a>
+      </nav>
+    </div>
+    <p class="footer-note">Data updates live from SampleAPIs. Crafted with Angular & Material principles.</p>
+  </footer>
+</div>
