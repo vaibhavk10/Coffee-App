@@ -40,14 +40,14 @@ Built as an assignment to demonstrate API integration, clean UI, and basic Angul
 ## 🛠 Getting Started
 
 # Clone the repository
-git clone https://github.com/vaibhavk10/Coffee-App.git
-cd Coffee-App
+`git clone https://github.com/vaibhavk10/Coffee-App.git`
+`cd Coffee-App`
 
 # Install dependencies
-npm install
+`npm install`
 
 # Run the development server
-ng serve
+`ng serve`
 
 # Open in browser
 http://localhost:4200/
