@@ -39,7 +39,9 @@ Built as an assignment to demonstrate API integration, clean UI, and basic Angul
 ## 🛠 Getting Started
 
 # Clone the repository
+
 `git clone https://github.com/vaibhavk10/Coffee-App.git`
+
 ---
 `cd Coffee-App`
 
