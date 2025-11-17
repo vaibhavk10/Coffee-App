@@ -6,7 +6,7 @@ Built as an assignment to demonstrate API integration, clean UI, and basic Angul
 ---
 
 <p align="center">
-  <a href="https://your-live-demo-url.com" target="_blank">
+  <a href="https://coffee-app-dun.vercel.app/" target="_blank">
     <img src="https://img.shields.io/badge/Live%20Demo-Click%20Here-success?style=for-the-badge" alt="Live Demo">
   </a>
   <a href="https://api.sampleapis.com/coffee/hot" target="_blank">
@@ -14,7 +14,6 @@ Built as an assignment to demonstrate API integration, clean UI, and basic Angul
   </a>
 </p>
 
-> 🔗 Replace `https://your-live-demo-url.com` with your deployed link (Netlify/Vercel/etc.).
 
 ---
 
@@ -41,6 +40,7 @@ Built as an assignment to demonstrate API integration, clean UI, and basic Angul
 
 # Clone the repository
 `git clone https://github.com/vaibhavk10/Coffee-App.git`
+---
 `cd Coffee-App`
 
 # Install dependencies
